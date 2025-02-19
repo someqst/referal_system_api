@@ -20,6 +20,8 @@ RESTful API на Python с использованием фреймворка fas
 - postgresql
 - sqlalchemy
 - pytest
+- pydantic
+- jwt
 
 
 ## Описание кода
