@@ -57,6 +57,11 @@ cd referal_system/
 ```cmd
 pip install -r requirements.txt
 ```
+- Создайте базу данных
+- Запустите приложение:
+```cmd
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
 После запуска проект будет доступен по адресу: http://127.0.0.1:8000
 
 - Документация API
