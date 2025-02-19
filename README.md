@@ -57,7 +57,11 @@ cd referal_system/
 ```cmd
 pip install -r requirements.txt
 ```
-- Создайте базу данных
+- Создайте базу данных (referal_system_db)
+- Выполните миграции с помощью alembic:
+```cmd
+alembic upgrade head
+```
 - Запустите приложение:
 ```cmd
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
