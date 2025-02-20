@@ -8,7 +8,7 @@ from app.database.repositories import referal_repository
 from fastapi import APIRouter, Depends, Response, Request, status
 
 
-logger.add('app/logs/auth.log', format="{time} {level} {message}\n", rotation='500MB', level="INFO", enqueue=True)
+logger.add('app/logs/users.log', format="{time} {level} {message}\n", rotation='500MB', level="INFO", enqueue=True)
 router = APIRouter()
 
 
