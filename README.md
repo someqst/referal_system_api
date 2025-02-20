@@ -1,11 +1,11 @@
-# To-Do List
+# Referal system API
 
 
 Описание:<br>
 Серверная часть:<br>
 RESTful API на Python с использованием фреймворка fastapi.
 
-Эндпоинты:
+Эндпоинты:<br>
 **POST** */api/v1/register/*: регистрация пользователя.<br>
 Входные параметры: *почта (email)*, *пароль (password)*.<br>
 **POST** */api/v1/login*: вход.<br>
@@ -20,6 +20,8 @@ RESTful API на Python с использованием фреймворка fas
 - postgresql
 - sqlalchemy
 - pytest
+- pydantic
+- jwt
 
 
 ## Описание кода
@@ -54,6 +56,15 @@ cd referal_system/
 - Установите необходимые зависимости
 ```cmd
 pip install -r requirements.txt
+```
+- Создайте базу данных (referal_system_db)
+- Выполните миграции с помощью alembic:
+```cmd
+alembic upgrade head
+```
+- Запустите приложение:
+```cmd
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 После запуска проект будет доступен по адресу: http://127.0.0.1:8000
 
