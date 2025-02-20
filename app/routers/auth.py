@@ -20,7 +20,7 @@ async def register_user(user_data: UserSchema, response: Request, session = Depe
                                 detail='User already exists')
         await user_repository.create(user_data.email, get_password_hash(user_data.password), response.cookies.get('code'), session)
         logger.info(f'Зарегистрирован пользователь: {user_data.email}')
-        return {'message': 'You have successfully registered!'}
+        return {'status': 'ok', 'message': 'You have successfully registered!'}
     except Exception as e:
         logger.error(f'Ошибка регистрации\n{str(e)}')
 
@@ -40,7 +40,7 @@ async def auth_user(response: Response, user_data: UserSchema, session = Depends
         access_token = create_access_token({"email": user.email})
         response.set_cookie(key="users_access_token", value=access_token, httponly=True)
         logger.info(f'Вошел пользователь: {user_data.email}')
-        return {'message': 'You have successfully logged in!'}
+        return {'status': 'ok', 'message': 'You have successfully logged in!'}
     except Exception as e:
         logger.error(f'Ошибка входа\n{str(e)}')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -51,7 +51,7 @@ async def auth_user(response: Response, user_data: UserSchema, session = Depends
 async def logout_user(response: Response):
     try:
         response.delete_cookie(key="users_access_token")
-        return {'message': 'You are successfully logged out!'}
+        return {'status': 'ok', 'message': 'You are successfully logged out!'}
     except Exception as e:
         logger.error(f'Ошибка выхода:\n{str(e)}')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

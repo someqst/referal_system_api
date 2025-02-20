@@ -17,6 +17,7 @@ async def create_referal_link(referal_code: str, response: Response):
     try:
         response.set_cookie('code', referal_code)
         logger.info(f'Перешел пользователь по коду {referal_code}')
+        return {'status': 'ok', 'message': 'Successful!'}
     except Exception as e:
         logger.error(f'Ошибка перехода на страницу регистрации по реферальному коду: {referal_code}\nОшибка: {str(e)}')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -33,7 +34,7 @@ async def create_code(request: Request, code: str, session = Depends(get_db), to
         expiration = datetime.now() + relativedelta(months=1)
         await referal_repository.create(code, email, expiration, session)
         logger.info(f'Создан реферальный код: {code}\nПользователь: {email}')
-        return {'message': 'Code successfully created!'}
+        return {'status': 'ok', 'message': 'Code successfully created!'}
     except Exception as e:
         logger.error(f'Создания реферального кода\n{str(e)}')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -45,7 +46,7 @@ async def get_referals(referrer_id: int, session = Depends(get_db)):
     try:
         referals = await referal_repository.get_all_referals(referrer_id, session)
         logger.info(f'Получены рефералы пользователя {referrer_id}')
-        return {'data': referals}
+        return {'status': 'ok', 'message': referals}
     except Exception as e:
         logger.error(f'Ошибка получения рефералов\n{str(e)}')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -58,7 +59,7 @@ async def get_code_by_email(email: str, session = Depends(get_db)):
         code = await referal_repository.get_by_email(email, session)
         if code:
             logger.info(f'Запрошен код по email: {email}')
-            return {'data': code}
+            return {'status': 'ok', 'message': code}
         
         logger.error(f'Не найден код по email {email}')
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,

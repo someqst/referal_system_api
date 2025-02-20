@@ -16,7 +16,7 @@ def register(test_user):
         response = client.post('/api/v1/register', json=test_user)
         assert response.status_code == 200
         data = response.json()
-        assert data['message'] == "You have successfully registered!"
+        assert data['status'] == "ok"
 
 
 def login(test_user):
@@ -24,7 +24,7 @@ def login(test_user):
         response = client.post('/api/v1/login', json=test_user)
         assert response.status_code == 200
         data = response.json()
-        assert data['message'] == "You have successfully logged in!"
+        assert data['status'] == "ok"
 
 
 def create_code():
@@ -32,7 +32,7 @@ def create_code():
         response = client.post('/api/v1/create_code', code='ahhaha123')
         assert response.status_code == 200
         data = response.json()
-        assert data['message'] == 'Code successfully created!'
+        assert data['status'] == "ok"
 
 
 def logout():
@@ -40,4 +40,4 @@ def logout():
         response = client.post('/api/v1/logout')
         assert response.status_code == 200
         data = response.json()
-        assert data['message'] == "You are successfully logged out!"
+        assert data['status'] == "ok"
