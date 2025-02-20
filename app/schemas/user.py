@@ -8,5 +8,3 @@ class UserSchema(BaseModel):
 
 class GetUserSchema(UserSchema):
     id: UUID4
-
-
