@@ -50,3 +50,20 @@ async def get_referals(referrer_id: int, session = Depends(get_db)):
         logger.error(f'Ошибка получения рефералов\n{str(e)}')
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                         detail='Iternal server error')
+    
+
+@router.post('/get_code_by_email')
+async def get_code_by_email(email: str, session = Depends(get_db)):
+    try:
+        code = await referal_repository.get_by_email(email, session)
+        if code:
+            logger.info(f'Запрошен код по email: {email}')
+            return {'data': code}
+        
+        logger.error(f'Не найден код по email {email}')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail='No code found')
+    except Exception as e:
+        logger.error(f'Ошибка поулчения кода по email\n{str(e)}')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                        detail='Iternal server error')

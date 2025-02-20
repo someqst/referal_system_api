@@ -43,6 +43,11 @@ class ReferalRepository:
     @classmethod
     async def get_all_referals(cls, referrer_id, session: AsyncSession):
         return (await session.execute(select(User._id, User.email).where(User.referer == referrer_id))).mappings().all()
+    
+
+    @classmethod
+    async def get_by_email(cls, email, session: AsyncSession):
+        return (await session.execute(select(ReferralSystem.name).where(ReferralSystem.owner == email))).scalar_one_or_none()
 
 
 user_repository = UserRepository()
