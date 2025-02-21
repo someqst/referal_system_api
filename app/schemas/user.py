@@ -1,8 +1,8 @@
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel, UUID4, EmailStr
 
 
 class UserSchema(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 
