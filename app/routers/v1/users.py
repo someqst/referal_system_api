@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, Response, Request, status
 
 
 logger.add(
-    "app/logs/users.log",
+    "logs/users.log",
     format="{time} {level} {message}\n",
     rotation="500MB",
     level="INFO",

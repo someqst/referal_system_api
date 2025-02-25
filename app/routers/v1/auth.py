@@ -8,7 +8,7 @@ from app.utils.auth import get_password_hash, authenticate_user, create_access_t
 
 
 logger.add(
-    "app/logs/auth.log",
+    "logs/auth.log",
     format="{time} {level} {message}\n",
     rotation="500MB",
     level="INFO",
