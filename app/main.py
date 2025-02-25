@@ -7,12 +7,9 @@ from app.routers.v1.users import router as user_router
 app = FastAPI()
 
 
-origins = ["localhots", "127.0.0.1"]
-
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["localhots", "127.0.0.1"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
