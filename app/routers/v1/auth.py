@@ -2,7 +2,7 @@ from loguru import logger
 from app.database.session import get_db
 from app.schemas.user import UserSchema
 from fastapi.exceptions import HTTPException
-from app.database.repositories import user_repository
+from app.database.repositories.user import user_repository
 from fastapi import APIRouter, Depends, Response, status, Request
 from app.utils.auth import get_password_hash, authenticate_user, create_access_token
 

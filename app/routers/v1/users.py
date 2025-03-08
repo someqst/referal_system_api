@@ -4,7 +4,7 @@ from app.database.session import get_db
 from fastapi.exceptions import HTTPException
 from dateutil.relativedelta import relativedelta
 from app.utils.auth import decode_token, check_token
-from app.database.repositories import referal_repository
+from app.database.repositories.referal import referal_repository
 from fastapi import APIRouter, Depends, Response, Request, status
 
 
