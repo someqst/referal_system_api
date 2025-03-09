@@ -62,7 +62,7 @@ async def create_code(
         )
 
 
-@router.get("/get_referals/{referrer_id}")
+@router.get("/get_referals/{referrer_id}", summary="Получить рефералов по id реферера")
 async def get_referals(referrer_id: int, session=Depends(get_db)):
     try:
         referals = await referal_repository.get_all_referals(referrer_id, session)
@@ -76,7 +76,7 @@ async def get_referals(referrer_id: int, session=Depends(get_db)):
         )
 
 
-@router.post("/get_code_by_email")
+@router.post("/get_code_by_email", summary="Получить реферальный код по почте реферера")
 async def get_code_by_email(email: str, session=Depends(get_db)):
     try:
         code = await referal_repository.get_by_email(email, session)

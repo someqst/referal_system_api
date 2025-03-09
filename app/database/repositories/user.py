@@ -1,23 +1,21 @@
 from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.models.user import User
-from app.database.models.referal import ReferralSystem
+from app.database.models.referal import ReferalSystem
 
 
 class UserRepository:
     @classmethod
     async def create(
-        cls, email, encrypted_password, referal_code, session: AsyncSession
+        cls, email: str, encrypted_password: str, referal_code: str | None, session: AsyncSession
     ):
         referer = None
         if referal_code:
-            referer = (
+            referal_system = (
                 await session.execute(
-                    select(User._id)
-                    .join(ReferralSystem, User.email == ReferralSystem.owner)
-                    .where(ReferralSystem.name == referal_code)
-                )
-            ).scalar_one_or_none()
+                    select(ReferalSystem).where(ReferalSystem.code == referal_code)
+                )).scalar_one_or_none()
+            referer = referal_system.owner._id
 
         await session.execute(
             insert(User).values(
@@ -39,8 +37,8 @@ class UserRepository:
         return (
             await session.execute(
                 select(User)
-                .join(ReferralSystem, User.email == ReferralSystem.owner)
-                .where(ReferralSystem.name == referal_word)
+                .join(ReferalSystem, User.email == ReferalSystem.owner_email)
+                .where(ReferalSystem.code == referal_word)
             )
         ).scalar_one_or_none()
     
